@@ -30,18 +30,20 @@ const PORT_NUMBER = process.env.PORT ?? 4000;
 
 // API info page
 app.get("/", (req, res) => {
-  const pathToFile = filePath("../public/index.html");
-  res.sendFile(pathToFile);
-});
-
-// GET /items
-app.get("/items", (req, res) => {
+  // const pathToFile = filePath("../public/index.html");
+  // res.sendFile(pathToFile);
   const allSignatures = getAllDbItems();
   res.status(200).json(allSignatures);
 });
 
-// POST /items
-app.post<{}, {}, DbItem>("/items", (req, res) => {
+// // GET /tasks
+// app.get("/tasks", (req, res) => {
+//   const allSignatures = getAllDbItems();
+//   res.status(200).json(allSignatures);
+// });
+
+// POST /tasks
+app.post<{}, {}, DbItem>("/", (req, res) => {
   // to be rigorous, ought to handle non-conforming request bodies
   // ... but omitting this as a simplification
   const postData = req.body;
@@ -49,8 +51,8 @@ app.post<{}, {}, DbItem>("/items", (req, res) => {
   res.status(201).json(createdSignature);
 });
 
-// GET /items/:id
-app.get<{ id: string }>("/items/:id", (req, res) => {
+// GET /tasks/:id
+app.get<{ id: string }>("/:id", (req, res) => {
   const matchingSignature = getDbItemById(parseInt(req.params.id));
   if (matchingSignature === "not found") {
     res.status(404).json(matchingSignature);
@@ -59,8 +61,8 @@ app.get<{ id: string }>("/items/:id", (req, res) => {
   }
 });
 
-// DELETE /items/:id
-app.delete<{ id: string }>("/items/:id", (req, res) => {
+// DELETE /tasks/:id
+app.delete<{ id: string }>("/:id", (req, res) => {
   const matchingSignature = getDbItemById(parseInt(req.params.id));
   if (matchingSignature === "not found") {
     res.status(404).json(matchingSignature);
@@ -69,8 +71,8 @@ app.delete<{ id: string }>("/items/:id", (req, res) => {
   }
 });
 
-// PATCH /items/:id
-app.patch<{ id: string }, {}, Partial<DbItem>>("/items/:id", (req, res) => {
+// PATCH /tasks/:id
+app.patch<{ id: string }, {}, Partial<DbItem>>("/:id", (req, res) => {
   const matchingSignature = updateDbItemById(parseInt(req.params.id), req.body);
   if (matchingSignature === "not found") {
     res.status(404).json(matchingSignature);
