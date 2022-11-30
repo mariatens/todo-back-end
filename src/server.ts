@@ -8,6 +8,7 @@ import {
   DbItem,
   updateDbItemById,
   addDummyDbItems,
+  deleteDbItemById,
 } from "./db";
 import filePath from "./filePath";
 
@@ -61,6 +62,7 @@ app.get<{ id: string }>("/:id", (req, res) => {
   }
 });
 
+
 // DELETE :id
 app.delete<{ id: string }>("/:id", (req, res) => {
   const matchingSignature = getDbItemById(parseInt(req.params.id));
@@ -68,6 +70,7 @@ app.delete<{ id: string }>("/:id", (req, res) => {
     res.status(404).json(matchingSignature);
   } else {
     res.status(200).json(matchingSignature);
+    deleteDbItemById(parseInt(req.params.id))
   }
 });
 
