@@ -18,7 +18,7 @@ let idCounter = 0;
  *
  * @param n - the number of items to generate
  * @returns the created items
- */
+//  */
 export const addDummyDbItems = (n: number): DbItemWithId[] => {
   const createdSignatures: DbItemWithId[] = [];
   for (let count = 0; count < n; count++) {
