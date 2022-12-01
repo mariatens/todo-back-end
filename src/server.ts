@@ -51,6 +51,19 @@ app.post<{}, {}, DbItem>("/", (req, res) => {
   res.status(201).json(createdSignature);
 });
 
+// POST /completedTasks
+app.post<{}, {}, DbItem>("/completed-tasks", (req, res) => {
+  // to be rigorous, ought to handle non-conforming request bodies
+  // ... but omitting this as a simplification
+  const postData = req.body;
+  const createdSignature = addDbItem(postData);
+  res.status(201).json(createdSignature);
+});
+
+
+
+
+
 // GET :id
 app.get<{ id: string }>("/:id", (req, res) => {
   const matchingSignature = getDbItemById(parseInt(req.params.id));
