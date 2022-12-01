@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   res.status(200).json(allSignatures);
 });
 
-app.get("/completed-tasks", (req, res) => {
+app.get("/completed-tasks/", (req, res) => {
   // const pathToFile = filePath("../public/index.html");
   // res.sendFile(pathToFile);
   const allSignatures = getAllDbItems();
@@ -60,7 +60,7 @@ app.post<{}, {}, DbItem>("/", (req, res) => {
 });
 
 // POST /completedTasks
-app.post<{}, {}, DbItem>("/completed-tasks", (req, res) => {
+app.post<{}, {}, DbItem>("/completed-tasks/", (req, res) => {
   // to be rigorous, ought to handle non-conforming request bodies
   // ... but omitting this as a simplification
   const postData = req.body;
