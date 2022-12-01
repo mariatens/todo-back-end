@@ -7,14 +7,13 @@ import {
   getDbItemById,
   DbItem,
   updateDbItemById,
-  addDummyDbItems,
   deleteDbItemById,
 } from "./db";
 import filePath from "./filePath";
 
 // loading in some dummy items into the database
 // (comment out if desired, or change the number)
-addDummyDbItems(1);
+// addDummyDbItems(1);
 
 const app = express();
 
@@ -82,6 +81,8 @@ app.patch<{ id: string }, {}, Partial<DbItem>>("/:id", (req, res) => {
   } else {
     res.status(200).json(matchingSignature);
   }
+  updateDbItemById(parseInt(req.params.id), req.body)
+  console.log(req.body)
 });
 
 app.listen(PORT_NUMBER, () => {
