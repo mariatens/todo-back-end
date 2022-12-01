@@ -36,6 +36,14 @@ app.get("/", (req, res) => {
   res.status(200).json(allSignatures);
 });
 
+app.get("/completed-tasks", (req, res) => {
+  // const pathToFile = filePath("../public/index.html");
+  // res.sendFile(pathToFile);
+  const allSignatures = getAllDbItems();
+  res.status(200).json(allSignatures);
+});
+
+
 // // GET /tasks
 // app.get("/tasks", (req, res) => {
 //   const allSignatures = getAllDbItems();
