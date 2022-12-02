@@ -2,6 +2,8 @@ import { time } from "console";
 
 export interface DbItem {
   task: string;
+  date: Date;
+
 }
 
 export interface DbItemWithId extends DbItem {
@@ -9,6 +11,8 @@ export interface DbItemWithId extends DbItem {
 }
 
 const db: DbItemWithId[] = [];
+
+const dbCompleted: DbItemWithId[] = [];
 
 /** Variable to keep incrementing id of database items */
 let idCounter = 0;
@@ -19,16 +23,16 @@ let idCounter = 0;
  * @param n - the number of items to generate
  * @returns the created items
 //  */
-export const addDummyDbItems = (n: number): DbItemWithId[] => {
-  const createdSignatures: DbItemWithId[] = [];
-  for (let count = 0; count < n; count++) {
-    const createdSignature = addDbItem({
-      task: "example task"
-    });
-    createdSignatures.push(createdSignature);
-  }
-  return createdSignatures;
-};
+// export const addDummyDbItems = (n: number): DbItemWithId[] => {
+//   const createdSignatures: DbItemWithId[] = [];
+//   for (let count = 0; count < n; count++) {
+//     const createdSignature = addDbItem({
+//       task: "example task"
+//     });
+//     createdSignatures.push(createdSignature);
+//   }
+//   return createdSignatures;
+// };
 
 /**
  * Adds in a single item to the database
@@ -36,12 +40,16 @@ export const addDummyDbItems = (n: number): DbItemWithId[] => {
  * @param data - the item data to insert in
  * @returns the item added (with a newly created id)
  */
-export const addDbItem = (data: DbItem): DbItemWithId => {
+export const addDbItem = (data: DbItem, completed: boolean): DbItemWithId => {
   const newEntry: DbItemWithId = {
     id: ++idCounter,
     ...data,
   };
-  db.push(newEntry);
+  if (completed === true){
+    dbCompleted.push(newEntry);
+  }else{
+    db.push(newEntry);
+  }
   return newEntry;
 };
 

@@ -53,8 +53,9 @@ app.get("/", (req, res) => {
 app.post<{}, {}, DbItem>("/completed-tasks/", (req, res) => {
   // to be rigorous, ought to handle non-conforming request bodies
   // ... but omitting this as a simplification
+  
   const postData = req.body;
-  const createdSignature = addDbItem(postData);
+  const createdSignature = addDbItem(postData, true);
   res.status(201).json(createdSignature);
 });
 
@@ -63,7 +64,7 @@ app.post<{}, {}, DbItem>("/", (req, res) => {
   // to be rigorous, ought to handle non-conforming request bodies
   // ... but omitting this as a simplification
   const postData = req.body;
-  const createdSignature = addDbItem(postData);
+  const createdSignature = addDbItem(postData, false);
   res.status(201).json(createdSignature);
 });
 
