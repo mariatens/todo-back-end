@@ -8,6 +8,7 @@ import {
   DbItem,
   updateDbItemById,
   deleteDbItemById,
+  getAllDbCompletedItems,
 } from "./db";
 import filePath from "./filePath";
 
@@ -30,7 +31,7 @@ const PORT_NUMBER = process.env.PORT ?? 4000;
 app.get("/completed-tasks/", (req, res) => {
   // const pathToFile = filePath("../public/index.html");
   // res.sendFile(pathToFile);
-  const allSignatures = getAllDbItems();
+  const allSignatures = getAllDbCompletedItems();
   res.status(200).json(allSignatures);
 });
 // API info page

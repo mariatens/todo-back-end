@@ -95,7 +95,9 @@ const findIndexOfDbItemById = (id: number): number | "not found" => {
 export const getAllDbItems = (): DbItemWithId[] => {
   return db;
 };
-
+export const getAllDbCompletedItems = (): DbItemWithId[] => {
+  return dbCompleted;
+};
 /**
  * Locates a database item by a given id
  *
