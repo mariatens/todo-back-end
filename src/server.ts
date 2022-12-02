@@ -27,7 +27,12 @@ dotenv.config();
 
 // use the environment variable PORT, or 4000 as a fallback
 const PORT_NUMBER = process.env.PORT ?? 4000;
-
+app.get("/completed-tasks/", (req, res) => {
+  // const pathToFile = filePath("../public/index.html");
+  // res.sendFile(pathToFile);
+  const allSignatures = getAllDbItems();
+  res.status(200).json(allSignatures);
+});
 // API info page
 app.get("/", (req, res) => {
   // const pathToFile = filePath("../public/index.html");
@@ -36,12 +41,7 @@ app.get("/", (req, res) => {
   res.status(200).json(allSignatures);
 });
 
-app.get("/completed-tasks/", (req, res) => {
-  // const pathToFile = filePath("../public/index.html");
-  // res.sendFile(pathToFile);
-  const allSignatures = getAllDbItems();
-  res.status(200).json(allSignatures);
-});
+
 
 
 // // GET /tasks
@@ -49,6 +49,14 @@ app.get("/completed-tasks/", (req, res) => {
 //   const allSignatures = getAllDbItems();
 //   res.status(200).json(allSignatures);
 // });
+// POST /completedTasks
+app.post<{}, {}, DbItem>("/completed-tasks/", (req, res) => {
+  // to be rigorous, ought to handle non-conforming request bodies
+  // ... but omitting this as a simplification
+  const postData = req.body;
+  const createdSignature = addDbItem(postData);
+  res.status(201).json(createdSignature);
+});
 
 // POST /
 app.post<{}, {}, DbItem>("/", (req, res) => {
@@ -59,14 +67,6 @@ app.post<{}, {}, DbItem>("/", (req, res) => {
   res.status(201).json(createdSignature);
 });
 
-// POST /completedTasks
-app.post<{}, {}, DbItem>("/completed-tasks/", (req, res) => {
-  // to be rigorous, ought to handle non-conforming request bodies
-  // ... but omitting this as a simplification
-  const postData = req.body;
-  const createdSignature = addDbItem(postData);
-  res.status(201).json(createdSignature);
-});
 
 
 
